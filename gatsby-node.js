@@ -1,5 +1,10 @@
 const path = require('path')
 
+/**
+ * Create Blog Post Pages
+ *
+ *
+ */
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
 

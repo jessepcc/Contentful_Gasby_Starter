@@ -3,10 +3,7 @@
   "description": "Contentful Gatsby Starter Blog",
   "private": true,
   "version": "0.0.1",
-  "author": "Contentful <opensource@contentful.com>",
-  "bugs": {
-    "url": "https://github.com/contentful/starter-gatsby-blog/issues"
-  },
+  "author": "BBJ",
   "dependencies": {
     "gatsby": "^4.0.0",
     "gatsby-plugin-image": "^2.0.0",
@@ -22,32 +19,26 @@
     "react-helmet": "^6.1.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^16.2.1",
+    "@commitlint/config-conventional": "^16.2.1",
     "contentful-import": "^7.8.6",
-    "netlify-cli": "^2.54.0"
+    "husky": "^7.0.4",
+    "netlify-cli": "^2.54.0",
+    "prettier": "^2.5.1"
   },
-  "engines": {
-    "node": ">=14.0.0"
-  },
-  "homepage": "https://github.com/contentful/starter-gatsby-blog#readme",
-  "keywords": [
-    "gatsby",
-    "contentful",
-    "starter"
-  ],
-  "license": "MIT",
+  "license": "NO LICENSE",
   "main": "n/a",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/contentful/starter-gatsby-blog.git"
-  },
   "scripts": {
     "dev": "gatsby develop",
     "build": "gatsby build",
-    "heroku-postbuild": "gatsby build",
     "serve": "gatsby serve",
-    "postinstall": "node ./bin/hello.js",
-    "setup": "node ./bin/setup.js",
+    "prettier": "prettier --write .",
+    "pre-commit": "yarn lint-staged",
+    "prepare": "husky install",
     "netlify:login": "netlify login",
     "netlify:deploy": "netlify deploy -d public -p"
+  },
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write && gatsby build && gatsby clean"
   }
 }
