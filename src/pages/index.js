@@ -12,8 +12,6 @@ function RootIndex({ data, location }) {
   const posts = get(data, 'allContentfulBlogPost.nodes')
   const [author] = get(data, 'allContentfulPerson.nodes')
 
-  console.log('index')
-
   return (
     <Layout location={location}>
       <div>{t('hello')}</div>

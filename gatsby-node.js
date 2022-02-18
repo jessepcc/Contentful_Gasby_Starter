@@ -14,9 +14,9 @@ exports.onCreatePage = async ({ page, actions }) => {
 
   // create page with 2 languages
 
-  console.log(
-    `Path ${page?.path} Language ${page?.context?.language} Locale ${page?.context?.locale} i18n ${page?.context?.i18n?.language}`
-  )
+  // console.log(
+  //   `Path ${page?.path} Language ${page?.context?.language} Locale ${page?.context?.locale} i18n ${page?.context?.i18n?.language}`
+  // )
   return createPage({
     ...page,
     context: {
