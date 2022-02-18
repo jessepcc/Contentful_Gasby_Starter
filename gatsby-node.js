@@ -1,11 +1,38 @@
 const path = require('path')
 
+/** pass the
+ */
+
+const LANG_DICT = {
+  en: 'en-US',
+  zh: 'zh-Hant-HK',
+}
+
+exports.onCreatePage = async ({ page, actions }) => {
+  const { createPage, deletePage } = actions
+  // delete the auto created page without customer context
+
+  // create page with 2 languages
+
+  console.log(
+    `Path ${page?.path} Language ${page?.context?.language} Locale ${page?.context?.locale} i18n ${page?.context?.i18n?.language}`
+  )
+  return createPage({
+    ...page,
+    context: {
+      ...page.context,
+      locale: LANG_DICT[page?.context?.language] || 'en-US',
+    },
+  })
+}
+
 /**
  * Create Blog Post Pages
  *
  *
  */
-exports.createPages = async ({ graphql, actions, reporter }) => {
+
+exports.createPages = async ({ page, graphql, actions, reporter }) => {
   const { createPage } = actions
 
   // Define a template for blog post
@@ -18,6 +45,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           nodes {
             title
             slug
+            node_locale
           }
         }
       }
@@ -43,14 +71,20 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       const previousPostSlug = index === 0 ? null : posts[index - 1].slug
       const nextPostSlug =
         index === posts.length - 1 ? null : posts[index + 1].slug
+      const locale =
+        post.node_locale === 'en-US'
+          ? '/en'
+          : `/${post.node_locale.substring(0, 2)}`
 
       createPage({
-        path: `/blog/${post.slug}/`,
+        path: `${locale}/blog/${post.slug}/`,
         component: blogPost,
         context: {
           slug: post.slug,
           previousPostSlug,
           nextPostSlug,
+          language: locale,
+          locale: LANG_DICT[post.node_locale] || 'en-US',
         },
       })
     })
